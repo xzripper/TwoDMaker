@@ -72,7 +72,7 @@ class Window:
         if hasattr(self, 'application') and hasattr(self, 'window'):
             self.delete()
 
-        self.new([])
+        self.new()
 
         self.title(parsed['Window']['Title'])
         self.icon(parsed['Window']['Icon'])
@@ -95,3 +95,8 @@ class Window:
     def windexec(self) -> None:
         """Execute window."""
         exit(self.application.exec_())
+
+    def windrun(self) -> None:
+        """Run window."""
+        self.windraise()
+        self.windexec()
