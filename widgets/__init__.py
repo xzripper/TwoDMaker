@@ -6,8 +6,6 @@ class Widget:
 
     def new(self, wtype: QWidget, **settings: dict[object]) -> None:
         """Create new widget."""
-        assert None if wtype.__bases__ == () else None if wtype.__bases__[0].__bases__ == () else wtype.__bases__[0].__bases__[0] == QWidget, 'not widget'
-
         self.widget = wtype(**settings)
 
     def get(self) -> QWidget:
