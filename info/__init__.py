@@ -3,7 +3,7 @@ class Info:
 
     author = 'Ivan Perzhinsky'
     licens = 'MIT License'
-    version = 1.0
+    version = 1.2
     cyear = 2021
 
     def get(self) -> str:
