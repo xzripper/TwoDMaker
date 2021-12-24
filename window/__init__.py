@@ -5,16 +5,45 @@ from configparser import ConfigParser
 from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtGui import QIcon
 
+import __main__
+
 
 class Window:
     """Tools for window creation."""
 
     path = (('\\'.join(__file__.split('\\')[:-2])) + '\\')
 
-    def new(self, *args: tuple[object]) -> None:
+    def new(self, useblank: bool=False, *args: tuple[object]) -> None:
         """Create new window."""
         self.application = QApplication(list(args))
         self.window = QWidget()
+
+        if useblank:
+            self.icon('EngineBlank')
+            self.title('%s Window.' % __main__.__file__.split('\\')[-1][:-3].title())
+            self.size([400, 400])
+            self.pos([200, 200])
+            self.resizable([400, 200], [400, 400])
+
+    def icon(self, icon: str=None) -> Union[None, str]:
+        """Set or get icon of app."""
+        if icon is None:
+            return self.window.windowIcon()
+
+        elif icon is not None:
+            if icon == 'EngineBlank':
+                self.window.setWindowIcon(QIcon(f'{self.path}window\\Icon.png'))
+
+            else:
+                self.window.setWindowIcon(QIcon(icon))
+
+    def title(self, title: str=None) -> Union[None, str]:
+        """Set or get title of app."""
+        if title is None:
+            return self.window.windowTitle()
+
+        elif title is not None:
+            self.window.setWindowTitle(title)
 
     def size(self, appsize: list[int]=None) -> Union[None, tuple[int]]:
         """Get size or set size of app."""
@@ -40,26 +69,6 @@ class Window:
         elif maxres is not None and minres is not None:
             self.window.setMaximumSize(*maxres)
             self.window.setMinimumSize(*minres)
-
-    def title(self, title: str=None) -> Union[None, str]:
-        """Set or get title of app."""
-        if title is None:
-            return self.window.windowTitle()
-
-        elif title is not None:
-            self.window.setWindowTitle(title)
-
-    def icon(self, icon: str=None) -> Union[None, str]:
-        """Set or get icon of app."""
-        if icon is None:
-            return self.window.windowIcon()
-
-        elif icon is not None:
-            if icon == 'EngineBlank':
-                self.window.setWindowIcon(QIcon(f'{self.path}window\\Icon.png'))
-
-            else:
-                self.window.setWindowIcon(QIcon(icon))
 
     def fromini(self, file: str) -> None:
         """Set up window from ini."""
